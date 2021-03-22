@@ -39,4 +39,6 @@
   flex-direction: column;
   padding: 20px;
   width: 100%;
+  flex: 0.8;
+  justify-content: space-evenly;
 }

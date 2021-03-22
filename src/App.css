@@ -20,6 +20,7 @@ a {
 .app {
   min-height: 98.5vh;
   border: 8px solid #39445a93;
+  /* background-color: white; */
   margin: 5px;
   padding: 5px;
 }
