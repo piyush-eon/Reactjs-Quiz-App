@@ -6,11 +6,13 @@ import Footer from "./components/Footer/Footer";
 import Header from "./components/Header/Header";
 import Home from "./Pages/Home/Home";
 import Quiz from "./Pages/Quiz/Quiz";
+import Result from "./Pages/Result/Result";
 
 function App() {
   const [questions, setQuestions] = useState();
   const [name, setName] = useState();
   const [currQues, setCurrQues] = useState(0);
+  const [score, setScore] = useState(0);
 
   const fetchQuestions = async (category = "", difficulty = "") => {
     const { data } = await axios.get(
@@ -40,7 +42,13 @@ function App() {
               questions={questions}
               currQues={currQues}
               setCurrQues={setCurrQues}
+              score={score}
+              setScore={setScore}
+              setQuestions={setQuestions}
             />
+          </Route>
+          <Route path="/result">
+            <Result name={name} score={score} />
           </Route>
         </Switch>
       </div>
