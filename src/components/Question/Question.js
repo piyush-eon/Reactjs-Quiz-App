@@ -2,6 +2,7 @@ import { Button } from "@material-ui/core";
 import { useState } from "react";
 import { useHistory } from "react-router";
 import "./Question.css";
+import ErrorMessage from "../ErrorMessage/ErrorMessage";
 
 const Question = ({
   currQues,
@@ -14,6 +15,7 @@ const Question = ({
   setQuestions,
 }) => {
   const [selected, setSelected] = useState();
+  const [error, setError] = useState(false);
 
   const history = useHistory();
 
@@ -26,15 +28,16 @@ const Question = ({
   const handleCheck = (i) => {
     setSelected(i);
     if (i === correct) setScore(score + 1);
+    setError(false);
   };
 
   const handleNext = () => {
-    if (currQues > 3) {
+    if (currQues > 18) {
       history.push("/result");
     } else if (selected) {
       setCurrQues(currQues + 1);
       setSelected();
-    } else alert("Please select");
+    } else setError("Please select an option first");
   };
 
   const handleQuit = () => {
@@ -49,6 +52,7 @@ const Question = ({
       <div className="singleQuestion">
         <h2>{questions[currQues].question}</h2>
         <div className="options">
+          {error && <ErrorMessage>{error}</ErrorMessage>}
           {options &&
             options.map((i) => (
               <button

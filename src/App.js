@@ -11,7 +11,6 @@ import Result from "./Pages/Result/Result";
 function App() {
   const [questions, setQuestions] = useState();
   const [name, setName] = useState();
-  const [currQues, setCurrQues] = useState(0);
   const [score, setScore] = useState(0);
 
   const fetchQuestions = async (category = "", difficulty = "") => {
@@ -40,8 +39,6 @@ function App() {
             <Quiz
               name={name}
               questions={questions}
-              currQues={currQues}
-              setCurrQues={setCurrQues}
               score={score}
               setScore={setScore}
               setQuestions={setQuestions}
