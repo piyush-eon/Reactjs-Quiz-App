@@ -2,6 +2,7 @@ import { Button, MenuItem, TextField } from "@material-ui/core";
 import { useState } from "react";
 import { useHistory } from "react-router";
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
+import Categories from "../../Data/Categories";
 import "./Home.css";
 
 const Home = ({ name, setName, fetchQuestions }) => {
@@ -42,12 +43,11 @@ const Home = ({ name, setName, fetchQuestions }) => {
             variant="outlined"
             style={{ marginBottom: 30 }}
           >
-            <MenuItem key="Movies" value={9}>
-              Movies
-            </MenuItem>
-            <MenuItem key="Computers" value="Computers">
-              Computers
-            </MenuItem>
+            {Categories.map((cat) => (
+              <MenuItem key={cat.category} value={cat.value}>
+                {cat.category}
+              </MenuItem>
+            ))}
           </TextField>
           <TextField
             select
