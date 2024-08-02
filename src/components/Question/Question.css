@@ -48,13 +48,13 @@
 }
 
 .select {
-  background-color: rgb(7, 207, 0);
-  color: white;
+  background-color: rgb(9, 252, 1);
+  color: rgb(252, 228, 228);
   box-shadow: 0 0 1px black;
 }
 
 .wrong {
-  background-color: rgb(233, 0, 0);
-  color: white;
+  background-color: rgb(252, 7, 7);
+  color: rgb(253, 230, 230);
   box-shadow: 0 0 1px black;
 }
