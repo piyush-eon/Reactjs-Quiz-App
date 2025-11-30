@@ -1,74 +1,44 @@
-# Trivia API
 
-https://opentdb.com/api.php?amount=20&category=${9 to 32}&difficulty=${ easy or medium or hard }&type=multiple
 
-# Getting Started with Create React App
+# Quiz App – Advanced Settings & Scoring Update
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## New Features
 
-## Available Scripts
+### **1. Marking Scheme (Normal / Negative)**
 
-In the project directory, you can run:
+* Added on Home screen.
+* New `score.js` handles scoring; wrong answers can reduce score below 0.
 
-### `yarn start`
+### **2. Advanced Quiz Settings**
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+* New modal (`Popup.js`) with:
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+  * Per-question timer
+  * Allow/disallow skipping
+  * Custom question count
+* All values saved in `localStorage`.
 
-### `yarn test`
+### **3. Timer Integration**
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+* Timer shown in Question.
+* Auto-marks wrong and moves to next on timeout.
 
-### `yarn build`
+### **4. Skip Controls**
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+* If skipping is disabled, Next is blocked.
+* Button label switches between **Skip / Next**.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### **5. Question Count Support**
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+* `App.js` uses the selected count.
+* UI shows **Question X / Y**.
 
-### `yarn eject`
+### **6. OpenTDB Session Token**
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+* Added to avoid repeats.
+* Auto-resets when token is exhausted.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### **7. Results Page Update**
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+* Shows **Correct** and **Wrong** counts (via router state).
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)

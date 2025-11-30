@@ -1,10 +1,12 @@
 import { Button } from "@material-ui/core";
 import { useEffect } from "react";
-import { useHistory } from "react-router";
+import { useHistory, useLocation } from "react-router";
 import "./Result.css";
 
-const Result = ({ name, score }) => {
+const Result = ({ name }) => {
   const history = useHistory();
+  const location = useLocation();
+  const { score = 0, correctCount = 0, wrongCount = 0 } = location.state || {};
 
   useEffect(() => {
     if (!name) {
@@ -15,6 +17,10 @@ const Result = ({ name, score }) => {
   return (
     <div className="result">
       <span className="title">Final Score : {score}</span>
+      <div className="details">
+        <p>Correct Answers: {correctCount}</p>
+        <p>Wrong Answers: {wrongCount}</p>
+      </div>
       <Button
         variant="contained"
         color="secondary"

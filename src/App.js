@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import "./App.css";
 import Footer from "./components/Footer/Footer";
@@ -12,13 +12,41 @@ function App() {
   const [questions, setQuestions] = useState();
   const [name, setName] = useState();
   const [score, setScore] = useState(0);
+  const [token, setToken] = useState(null);
+
+  useEffect(() => {
+    const init = async () => {
+      try {
+        const { data } = await axios.get(
+          "https://opentdb.com/api_token.php?command=request"
+        );
+        setToken(data.token);
+      } catch (e) {
+        console.error("Failed to fetch OpenTDB token", e);
+      }
+    };
+    init();
+  }, []);
 
   const fetchQuestions = async (category = "", difficulty = "") => {
-    const { data } = await axios.get(
-      `https://opentdb.com/api.php?amount=10${
-        category && `&category=${category}`
-      }${difficulty && `&difficulty=${difficulty}`}&type=multiple`
-    );
+    const amount = Number(localStorage.getItem("questionAmount")) || 10;
+
+    const base = `https://opentdb.com/api.php?amount=${amount}${
+      category ? `&category=${category}` : ""
+    }${difficulty ? `&difficulty=${difficulty}` : ""}&type=multiple&encode=url3986${
+      token ? `&token=${token}` : ""
+    }`;
+
+    const { data } = await axios.get(base);
+
+    if (data.response_code === 4 && token) {
+      await axios.get(
+        `https://opentdb.com/api_token.php?command=reset&token=${token}`
+      );
+      const retry = await axios.get(base);
+      setQuestions(retry.data.results);
+      return;
+    }
 
     setQuestions(data.results);
   };
@@ -29,11 +57,7 @@ function App() {
         <Header />
         <Switch>
           <Route path="/" exact>
-            <Home
-              name={name}
-              setName={setName}
-              fetchQuestions={fetchQuestions}
-            />
+            <Home name={name} setName={setName} fetchQuestions={fetchQuestions} />
           </Route>
           <Route path="/quiz">
             <Quiz

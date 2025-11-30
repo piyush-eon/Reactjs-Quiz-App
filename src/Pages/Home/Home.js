@@ -3,21 +3,25 @@ import { useState } from "react";
 import { useHistory } from "react-router";
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 import Categories from "../../Data/Categories";
+import AdvancedPopup from "../../components/Popup/Popup";
 import "./Home.css";
 
 const Home = ({ name, setName, fetchQuestions }) => {
   const [category, setCategory] = useState("");
   const [difficulty, setDifficulty] = useState("");
   const [error, setError] = useState(false);
+  const [markingScheme, setMarkingScheme] = useState("");
+  const [showAdvanced, setShowAdvanced] = useState(false);
 
   const history = useHistory();
 
   const handleSubmit = () => {
-    if (!category || !difficulty || !name) {
+    if (!category || !difficulty || !name || !markingScheme) {
       setError(true);
       return;
     } else {
       setError(false);
+      localStorage.setItem("markingScheme", markingScheme);
       fetchQuestions(category, difficulty);
       history.push("/quiz");
     }
@@ -67,16 +71,49 @@ const Home = ({ name, setName, fetchQuestions }) => {
               Hard
             </MenuItem>
           </TextField>
-          <Button
-            variant="contained"
-            color="primary"
-            size="large"
-            onClick={handleSubmit}
+          <TextField
+            select
+            label="Select Marking Scheme"
+            value={markingScheme}
+            onChange={(e) => setMarkingScheme(e.target.value)}
+            variant="outlined"
+            style={{ marginBottom: 30 }}
           >
-            Start Quiz
-          </Button>
+            <MenuItem key="Normal" value="normal">
+              Normal Marking
+            </MenuItem>
+            <MenuItem key="Negative" value="negative">
+              Negative Marking
+            </MenuItem>
+          </TextField>
+
+          <div style={{ display: "flex", gap: 12, marginBottom: 20 }}>
+            <Button
+              variant="outlined"
+              color="default"
+              size="large"
+              onClick={() => setShowAdvanced(true)}
+            >
+              Advanced Quiz Settings
+            </Button>
+            <Button
+              variant="contained"
+              color="primary"
+              size="large"
+              onClick={handleSubmit}
+            >
+              Start Quiz
+            </Button>
+          </div>
         </div>
       </div>
+
+      <AdvancedPopup
+        open={showAdvanced}
+        onClose={() => setShowAdvanced(false)}
+        onApply={() => setShowAdvanced(false)}
+      />
+
       <img src="/quiz.svg" className="banner" alt="quiz app" />
     </div>
   );

@@ -3,25 +3,24 @@ import { useEffect, useState } from "react";
 import Question from "../../components/Question/Question";
 import "./Quiz.css";
 
+const decode = (s) => {
+  try { return decodeURIComponent(s); } catch { return s; }
+};
+
 const Quiz = ({ name, questions, score, setScore, setQuestions }) => {
   const [options, setOptions] = useState();
   const [currQues, setCurrQues] = useState(0);
+  const [correctCount, setCorrectCount] = useState(0);
+  const [wrongCount, setWrongCount] = useState(0);
 
   useEffect(() => {
-    setOptions(
-      questions &&
-        handleShuffle([
-          questions[currQues]?.correct_answer,
-          ...questions[currQues]?.incorrect_answers,
-        ])
-    );
+    if (!questions) return;
+    const correct = decode(questions[currQues]?.correct_answer || "");
+    const incorrect = (questions[currQues]?.incorrect_answers || []).map(decode);
+    setOptions(handleShuffle([correct, ...incorrect]));
   }, [currQues, questions]);
 
-  console.log(questions);
-
-  const handleShuffle = (options) => {
-    return options.sort(() => Math.random() - 0.5);
-  };
+  const handleShuffle = (arr) => arr.sort(() => Math.random() - 0.5);
 
   return (
     <div className="quiz">
@@ -30,21 +29,22 @@ const Quiz = ({ name, questions, score, setScore, setQuestions }) => {
       {questions ? (
         <>
           <div className="quizInfo">
-            <span>{questions[currQues].category}</span>
-            <span>
-              {/* {questions[currQues].difficulty} */}
-              Score : {score}
-            </span>
+            <span>{decode(questions[currQues].category)}</span>
+            <span>Score : {score}</span>
           </div>
           <Question
             currQues={currQues}
             setCurrQues={setCurrQues}
             questions={questions}
             options={options}
-            correct={questions[currQues]?.correct_answer}
+            correct={decode(questions[currQues]?.correct_answer || "")}
             score={score}
             setScore={setScore}
             setQuestions={setQuestions}
+            correctCount={correctCount}
+            wrongCount={wrongCount}
+            setCorrectCount={setCorrectCount}
+            setWrongCount={setWrongCount}
           />
         </>
       ) : (

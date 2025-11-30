@@ -1,0 +1,39 @@
+/* score.css */
+/* Optional styles if you want to display the active marking scheme in your UI. */
+
+.score-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  border-radius: 14px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  user-select: none;
+  border: 1px solid rgba(0,0,0,0.08);
+}
+
+.score-badge__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.score-badge--normal {
+  background: #f3faf5;
+  color: #0b6b3a;
+}
+
+.score-badge--normal .score-badge__dot {
+  background: #19a463;
+}
+
+.score-badge--negative {
+  background: #fff5f5;
+  color: #a12a2a;
+}
+
+.score-badge--negative .score-badge__dot {
+  background: #e25555;
+}
